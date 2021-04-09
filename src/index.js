@@ -91,7 +91,7 @@ class AlertsPlugin {
     }
 
     const namespace = definition.pattern ?
-      this.awsProvider.naming.getStackName() :
+      (definition.namespace ? definition.namespace : this.awsProvider.naming.getStackName()) :
       definition.namespace;
 
     const metricName = definition.pattern ?
