@@ -91,7 +91,7 @@ class AlertsPlugin {
     }
 
     const namespace = definition.pattern ?
-      this.awsProvider.naming.getStackName() :
+      (definition.namespace ? definition.namespace : this.awsProvider.naming.getStackName()) :
       definition.namespace;
 
     const metricName = definition.pattern ?
@@ -188,7 +188,7 @@ class AlertsPlugin {
     const logMetricCFRefOK = `${logMetricCFRefBase}OK`;
 
     const cfLogName = this.providerNaming.getLogGroupLogicalId(functionName);
-    const metricNamespace = this.providerNaming.getStackName();
+    const metricNamespace = alarm.namespace ? alarm.namespace : this.providerNaming.getStackName();
     const logGroupName = this.providerNaming.getLogGroupName(functionObj.name);
     const metricName = this.naming.getPatternMetricName(alarm.metric, normalizedFunctionName);
     const metricValue = alarm.metricValue ? alarm.metricValue : 1;
